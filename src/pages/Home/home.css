@@ -1,0 +1,153 @@
+@media only screen and (max-width: 768px) {
+  /* Styles for mobile devices */
+  .mele {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 48px;
+  }
+  .koode {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .koode3 p {
+    color: #241303;
+    /* font-family: Quattrocento; */
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+    /* margin-top: 20px; */
+  }
+  .koode3 h1 {
+    color: #241303;
+    /* font-family: Quattrocento; */
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+    margin-top: 5px;
+  }
+  .bann {
+    border-radius: 14px;
+    border: 1px solid #bb681d;
+    background: rgba(245, 227, 211, 0.42);
+    box-shadow: 0 4px 8.1px 0 rgba(196, 126, 62, 0.25);
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    margin-bottom: 48px;
+  }
+  .bann2 p {
+    color: #241303;
+    font-family: Quattrocento;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  .bann1 h1 {
+    color: #241303;
+    font-family: Quattrocento;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    width: 229px;
+  }
+  .homenav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 20px;
+  }
+  .homenav button {
+    border: none;
+    background-color: none;
+  }
+  .card {
+    width: 150px;
+    border-radius: 10px;
+    overflow: hidden;
+    /* border: 2px solid #009eff; */
+    /* Light blue border */
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .price-tag {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background-color: white;
+    padding: 4px 8px;
+    font-weight: bold;
+    border-radius: 8px;
+    font-size: 14px;
+    color: black;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  .hnera {
+  display: flex; /* Change from inline-flex to flex */
+  align-items: center;
+  gap: 16px; /* Optional: reduce gap if needed */
+  padding: 0 20px;
+  margin-top: 24px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  max-width: 100vw;
+  box-sizing: border-box;
+
+  /* Hide scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.hnera::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+
+  .hneraind h1 {
+    color: #241303;
+    font-family: Quattrocento;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+    margin-top: 24px;
+  }
+  .hneraind p {
+    color: #241303;
+    font-family: Quattrocento;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+  }
+  /* .hneraind
+  {
+    
+  } */
+
+  /* Add your custom mobile styles here */
+}
