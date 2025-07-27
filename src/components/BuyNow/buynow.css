@@ -1,0 +1,55 @@
+@media only screen and (max-width: 768px) {
+   .prodd {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: #F1F5F2;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 12px 12px 0 0;
+  box-sizing: border-box;
+
+  /* 💨 Feathered border effect using shadow */
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+}
+
+    .atc
+    {
+        border-radius: 10px;
+border: 0.5px solid #241303;
+background: #F1F5F2;
+box-shadow: 0 4px 5.4px -2px rgba(36, 19, 3, 0.25);
+color: #241303;
+font-family: Quattrocento;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+padding-left: 20px;
+padding-right: 20px;
+padding-top: 14px;
+padding-bottom: 14px;
+    }
+    .byn
+    {
+        border-radius: 10px;
+background: #241303;
+box-shadow: 0 4px 5.4px -2px rgba(36, 19, 3, 0.25);
+color: #FFF;
+font-family: Quattrocento;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+padding-left: 20px;
+padding-right: 20px;
+padding-top: 14px;
+padding-bottom: 14px;
+    }
+}
