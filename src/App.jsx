@@ -9,6 +9,8 @@ import Home from './pages/Home/Home';
 import ProductInd from './pages/ProductInd/ProductInd';
 import Cart from './pages/Cart/Cart';
 import Checkout from './pages/Checkout/Checkout';
+import Sucess from './pages/Sucess/Sucess';
+import YourOrder from './pages/YourOrder/YourOrder';
 
 function App() {
   
@@ -23,6 +25,8 @@ function App() {
           <Route path='/prodind' element={<ProductInd></ProductInd>}/>
           <Route path='/cart' element={<Cart></Cart>}/>
           <Route path='/check' element={<Checkout></Checkout>}/>
+          <Route path='/sucess' element={<Sucess></Sucess>}/>
+          <Route path='/yorder' element={<YourOrder></YourOrder>}/>
         </Routes>
       </Router>
     </>
