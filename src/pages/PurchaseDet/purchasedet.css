@@ -1,0 +1,128 @@
+@media only screen and (max-width: 768px) {
+    .pupad
+    {
+        display: block;
+        width: 100%;
+        margin-bottom: 24px;
+        
+    }
+    .pupad img
+    {
+        display: block  ;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .prhead
+    {
+        color: #241303;
+text-align: center;
+font-family: Quattrocento;
+font-size: 24px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+margin: 0;
+margin-bottom: 24px;
+    }
+    .ordno
+    {
+        color: #241303;
+text-align: center;
+font-family: Quattrocento;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin: 0;
+margin-bottom: 24px;
+    }
+    .arrv
+    {
+        color: #241303;
+text-align: center;
+font-family: Quattrocento;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+margin: 0;
+margin-bottom: 24px;
+    }
+    .prdatain
+    {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        /* gap: 20px; */
+        margin-bottom: 24px;
+    }
+    .prdatain h1
+    {
+       color: #241303;
+text-align: right;
+font-family: Quattrocento;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+margin: 0;
+    }
+    .prdatain p
+    {
+        color: #241303;
+font-family: Quattrocento;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin: 0;
+    }
+    .trackdet
+    {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        gap: 20px;
+        /* margin-top: 24px; */
+        margin-bottom: 0;
+        padding-left: 54px;
+    }
+    .sthalam
+    {
+        height: 24px;
+    }
+    .trackdata h1
+    {
+        color: #241303;
+font-family: Quattrocento;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+margin: 0;
+margin-bottom: 20px;
+    }
+    .add-data
+    {
+        color: #241303;
+font-family: Quattrocento;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin: 0;
+padding-left: 66px;
+    }
+    .trackdata p
+    {
+        color: #241303;
+font-family: Quattrocento;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin: 0;
+margin-bottom: 10px;
+    }
+
+}
