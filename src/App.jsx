@@ -8,6 +8,7 @@ import Signup from './pages/Signup/Signup';
 import Home from './pages/Home/Home';
 import ProductInd from './pages/ProductInd/ProductInd';
 import Cart from './pages/Cart/Cart';
+import Checkout from './pages/Checkout/Checkout';
 
 function App() {
   
@@ -21,6 +22,7 @@ function App() {
           <Route path='/home' element={<Home></Home>}/>
           <Route path='/prodind' element={<ProductInd></ProductInd>}/>
           <Route path='/cart' element={<Cart></Cart>}/>
+          <Route path='/check' element={<Checkout></Checkout>}/>
         </Routes>
       </Router>
     </>

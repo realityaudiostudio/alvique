@@ -1,0 +1,112 @@
+@media only screen and (max-width: 768px) {
+    .addrr
+    {
+        display: flex;
+width: 100%;
+align-items: center;
+justify-content: space-around;
+/* gap: 38px; */
+    }
+    .addrr p
+    {
+        color: #241303;
+font-family: Quattrocento;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;    
+    }
+    .dotvera {
+    border-top: 1px dashed rgba(36, 19, 3, 0.44);
+    height: 0;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 24px;
+    margin-bottom: 24px; /* Optional: remove any height if you only want the border line */
+}
+.ordrs
+{
+    color: #241303;
+font-family: Quattrocento;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+padding-left: 20px;
+}
+.barc
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 24px;
+}
+.toc
+{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+.toc h1
+{
+    color: #241303;
+text-align: right;
+font-family: Quattrocento;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+.toc p
+{
+    color: #241303;
+font-family: Quattrocento;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+text-align: left;
+}
+.spp
+{
+    color: #241303;
+text-align: right;
+font-family: Quattrocento;
+font-size: 24px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+.cpn
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+.cpn input
+{
+    border-radius: 7px;
+border: 0.5px solid #A56224;
+background: #F3EEE5;
+padding: 10px;
+width: 200px;
+}
+.cpn button
+{
+    border-radius: 7px;
+background: #F2E0B3;
+padding: 10px 18px 10px 18px;
+border: 1px solid #A56224;
+color: #241303;
+font-family: Quattrocento;
+font-size: 12px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+}
