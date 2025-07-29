@@ -12,6 +12,7 @@ import Checkout from './pages/Checkout/Checkout';
 import Sucess from './pages/Sucess/Sucess';
 import YourOrder from './pages/YourOrder/YourOrder';
 import PurchaseDet from './pages/PurchaseDet/PurchaseDet';
+import Profile from './pages/Profile/Profile';
 
 function App() {
   
@@ -29,6 +30,7 @@ function App() {
           <Route path='/sucess' element={<Sucess></Sucess>}/>
           <Route path='/yorder' element={<YourOrder></YourOrder>}/>
           <Route path='/purchase' element={<PurchaseDet></PurchaseDet>}/>
+          <Route path='/profile' element={<Profile></Profile>}/>
         </Routes>
       </Router>
     </>

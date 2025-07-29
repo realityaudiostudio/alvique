@@ -1,0 +1,63 @@
+@media only screen and (max-width: 768px) {
+    .profhead
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        /* padding:0px 20px 0px 20px; */
+    }
+    .proftext h1
+    {
+        color: #241303;
+font-family: Quattrocento;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+margin: 0;
+    }
+    .proftext p
+    {
+        color: #241303;
+font-family: Quattrocento;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin: 0;
+margin-top: 5px;
+    }
+    .proftext
+    {
+        width: 210px;
+    }
+    .prosadh
+    {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        gap: 10px;
+        padding: 0px 40px 0px 40px;
+    }
+    .veravera2
+    {
+        background: rgba(64, 34, 7, 0.12);
+        height: 1px;
+        width: 85%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+    .prosadh p
+    {
+        color: #241303;
+font-family: Quattrocento;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin: 0;
+    }
+}

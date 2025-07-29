@@ -70,6 +70,8 @@ PIN:679333</p>
         </div>
         
       </div>
+      <div className="sthalam"></div>
+      <div className="sthalam"></div>
       <MainBut ButVal="Proceed Payment"></MainBut>
     </div>
   )
