@@ -3,10 +3,12 @@ import "./home.css";
 import Manushyan from "../../../public/img/photo.png";
 import Coin from "../../../public/img/coin.png";
 import Individual from "../../../public/img/ind.png";
+import Navigation from "../../components/Navigation/Navigation";
 
 function Home() {
   return (
     <div>
+      <Navigation></Navigation>
       <div className="mele">
         <div className="koode">
           <div className="koode2">
