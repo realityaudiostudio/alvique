@@ -1,9 +1,49 @@
 import React from "react";
 import './login.css';
+import { supabase } from "../../../supabaseClient";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import { Button, message, Space } from 'antd';
 
 function Login() {
+  const [email,setEmail] = useState('');
+  const [password,setPassword] = useState('');
+  const navigate = useNavigate();
+  const [messageApi, contextHolder] = message.useMessage();
+
+  async function handleLogin() {
+    const {data,error} = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+    if(error)
+    {
+      console.log("Erro on auth",error);
+       messageApi.open({
+      type: 'error',
+      content: 'Login Failed!',
+    });
+    }
+    else
+    {
+       messageApi.open({
+      type: 'success',
+      content: 'Logged in Sucessfully !',
+    });
+      navigate('/home');
+    }
+  };
+
+  function handleKeydown(e)
+  {
+    if(e.key==='Enter')
+    {
+      handleLogin();
+    }
+  }
   return (
     <div>
+      {contextHolder}
       <div className="hdcontent">
         <h1 className="qto-bold">Login</h1>
         <p className="qto-regular">
@@ -11,9 +51,9 @@ function Login() {
         </p>
       </div>
       <div className="logins">
-        <input type="text" placeholder="Enter username"></input><br></br>
-        <input type="password" placeholder="Enter password"></input><br></br>
-        <button>Login</button>
+        <input value={email} onKeyDown={handleKeydown} onChange={(e)=>setEmail(e.target.value)} type="text" placeholder="Enter username"></input><br></br>
+        <input type="password"  onKeyDown={handleKeydown} value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Enter password"></input><br></br>
+        <button onClick={handleLogin}>Login</button>
       </div>
       <div className="vara"></div>
       <p className="varata qto-regular">Or signin with these</p>

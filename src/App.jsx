@@ -2,7 +2,7 @@
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css';
-import { BrowserRouter as Router,Routes,Route } from 'react-router';
+import { BrowserRouter as Router,Routes,Route,Navigate } from 'react-router';
 import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
 import Home from './pages/Home/Home';
@@ -13,26 +13,31 @@ import Sucess from './pages/Sucess/Sucess';
 import YourOrder from './pages/YourOrder/YourOrder';
 import PurchaseDet from './pages/PurchaseDet/PurchaseDet';
 import Profile from './pages/Profile/Profile';
+import PrivateRoute from './Route/PrivateRoute/PrivateRoute';
+import { AuthProvider } from './authContext/authContext';
 
 function App() {
   
 
   return (
     <>
+    <AuthProvider>
       <Router>
         <Routes>
+          <Route path='/' element={<Navigate to="/home" />} />
           <Route path='/login' element={<Login></Login>}/>
           <Route path='/signup' element={<Signup></Signup>}/>
           <Route path='/home' element={<Home></Home>}/>
-          <Route path='/prodind' element={<ProductInd></ProductInd>}/>
-          <Route path='/cart' element={<Cart></Cart>}/>
-          <Route path='/check' element={<Checkout></Checkout>}/>
-          <Route path='/sucess' element={<Sucess></Sucess>}/>
+          <Route path='/prodind/:id' element={<ProductInd></ProductInd>}/>
+          <Route path='/cart' element={<PrivateRoute><Cart></Cart></PrivateRoute>}/>
+          <Route path='/check' element={<PrivateRoute><Checkout></Checkout></PrivateRoute>}/>
+          <Route path='/sucess' element={<PrivateRoute><Sucess></Sucess></PrivateRoute>}/>
           <Route path='/yorder' element={<YourOrder></YourOrder>}/>
           <Route path='/purchase' element={<PurchaseDet></PurchaseDet>}/>
-          <Route path='/profile' element={<Profile></Profile>}/>
+          <Route path='/profile' element={<PrivateRoute><Profile></Profile></PrivateRoute>}/>
         </Routes>
       </Router>
+      </AuthProvider>
     </>
   )
 }

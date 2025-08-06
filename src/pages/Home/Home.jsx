@@ -4,8 +4,33 @@ import Manushyan from "../../../public/img/photo.png";
 import Coin from "../../../public/img/coin.png";
 import Individual from "../../../public/img/ind.png";
 import Navigation from "../../components/Navigation/Navigation";
+import { supabase } from "../../../supabaseClient";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useAuth } from "../../authContext/authContext";
+import { Link } from "react-router";
 
 function Home() {
+   const {getUserName} = useAuth();
+   const [products,setProducts] = useState([]);
+   useEffect(()=>
+  {
+    fetchProducts();
+    // console.log("Updated products:", products);
+  },[]);
+
+   async function fetchProducts()
+   {
+    const {data : proddat,error : proderr} = await supabase.from('products').select('*');
+    if(proderr)
+    {
+      console.log("No products broughtr",proderr);
+    }
+    else{
+      setProducts(proddat);
+      console.log(proddat);
+    }
+   }
   return (
     <div>
       <Navigation></Navigation>
@@ -16,7 +41,7 @@ function Home() {
           </div>
           <div className="koode3">
             <p className="qto-regular">Good Morning,</p>
-            <h1 className="qto-bold">Alvin Shaju</h1>
+            <h1 className="qto-bold">{getUserName()}</h1>
           </div>
         </div>
         <svg
@@ -57,30 +82,30 @@ function Home() {
         </button>
       </div>
       <div className="hnera">
-        <div className="hneraind">
+        {products.filter(product =>product.is_trending === true && product.stock_available > 0).map((product,index)=>{
+          const sellingPrice = Number(product.pr_act_price) - Number(product.pr_disc);
+          return(
+            <Link to={`/prodind/${product.id}`} state={{product}} key={product.id} style={{ textDecoration: "none", color: "inherit" }}>
+          <div key={index} className="hneraind">
+          <div class="card">
+            <img src={Individual} alt="Currency Note" class="card-img" />
+            <div class="price-tag qto-bold">${sellingPrice}</div>
+          </div>
+          <h1>{product.pr_name}</h1>
+          <p>{product.rating} Rating</p>
+        </div>
+        </Link>
+        )})}
+        
+        
+        {/* <div className="hneraind">
           <div class="card">
             <img src={Individual} alt="Currency Note" class="card-img" />
             <div class="price-tag qto-bold">$30</div>
           </div>
           <h1>The coin bank</h1>
           <p>4.8 Rating</p>
-        </div>
-        <div className="hneraind">
-          <div class="card">
-            <img src={Individual} alt="Currency Note" class="card-img" />
-            <div class="price-tag qto-bold">$30</div>
-          </div>
-          <h1 className="qto-bold">The coin bank</h1>
-          <p className="qto-regular">4.8 Rating</p>
-        </div>
-        <div className="hneraind">
-          <div class="card">
-            <img src={Individual} alt="Currency Note" class="card-img" />
-            <div class="price-tag qto-bold">$30</div>
-          </div>
-          <h1>The coin bank</h1>
-          <p>4.8 Rating</p>
-        </div>  
+        </div>   */}
       </div>
       <div className="homenav">
         <p className="qto-bold">The Old Trend</p>
@@ -100,31 +125,38 @@ function Home() {
         </button>
       </div>
       <div className="hnera">
-        <div className="hneraind">
+        {products.filter(product => product.is_discount === true && product.stock_available > 0).map((product,index)=>{
+          const sellP=Number(product.pr_act_price)-Number(product.pr_disc);
+          return(
+            <Link to={`/prodind/${product.id}`} state={{product}} key={product.id} style={{ textDecoration: "none", color: "inherit" }}>
+          <div key={index} className="hneraind">
           <div class="card">
             <img src={Individual} alt="Currency Note" class="card-img" />
-            <div class="price-tag qto-bold">$30</div>
+            <div class="price-tag qto-bold">${sellP}</div>
           </div>
-          <h1>The coin bank</h1>
-          <p>4.8 Rating</p>
+          <h1>{product.pr_name}</h1>
+          <p>{product.rating} Rating</p>
         </div>
-        <div className="hneraind">
+        </Link>
+        );
+        })}
+        
+        {/* <div className="hneraind">
           <div class="card">
             <img src={Individual} alt="Currency Note" class="card-img" />
             <div class="price-tag qto-bold">$30</div>
           </div>
           <h1 className="qto-bold">The coin bank</h1>
           <p className="qto-regular">4.8 Rating</p>
-        </div>
-        <div className="hneraind">
-          <div class="card">
-            <img src={Individual} alt="Currency Note" class="card-img" />
-            <div class="price-tag qto-bold">$30</div>
-          </div>
-          <h1>The coin bank</h1>
-          <p>4.8 Rating</p>
-        </div>  
+        </div> */}
+        
       </div>
+      <div className="sthalam"></div>
+        <div className="sthalam"></div>
+        <div className="sthalam"></div>
+        <div className="sthalam"></div>
+        {/* <div className="sthalam"></div> */}
+        {/* <div className="sthalam"></div> */}
     </div>
   );
 }

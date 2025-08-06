@@ -3,8 +3,91 @@ import "./productind.css";
 import Prod from "../../../public/img/prod.png";
 import Individual from "../../../public/img/ind.png";
 import BuyNow from "../../components/BuyNow/BuyNow";
+import { supabase } from "../../../supabaseClient";
+import { useState } from "react";
+import { useLocation, useParams } from "react-router";
+import { useEffect } from "react";
+import { Spin } from "antd";
 
 function ProductInd() {
+  const location = useLocation();
+  const {id} = useParams();
+  const [product,setProduct] = useState(location.state?.product || null);
+   const [spinning, setSpinning] = useState(false);
+   const [percent, setPercent] = useState(0);
+   const [fetchError,setFetchError] = useState(false);
+   const [qty,setQty]=useState(1);
+  useEffect(()=>
+  {
+    if(!product)
+    {
+      showLoader();
+      fetchProduct();
+    }
+  },[]);
+
+
+  function handleQtyplus()
+  {
+    if(product.stock_available <=qty)
+    {
+      setQty(qty);
+    }
+    else
+    {
+      setQty(qty+1);
+    }
+  }
+  function handleQtyMinus()
+  {
+    if(qty<=1)
+    {
+      setQty(qty);
+    }
+    else
+    {
+      setQty(qty-1);
+    }
+    
+  }
+  const showLoader = () => {
+    setSpinning(true);
+    let ptg = -10;
+    const interval = setInterval(() => {
+      ptg += 5;
+      setPercent(ptg);
+      if (ptg > 120) {
+        clearInterval(interval);
+        setSpinning(false);
+        setPercent(0);
+      }
+    }, 100);
+  };
+
+  async function fetchProduct()
+  {
+    const {data,error} = await supabase.from('products').select('*').eq("id",id).single()
+    if(error)
+    {
+      setFetchError(true);
+      console.log("Product not found",error);
+    }
+    else
+    {
+      setProduct(data);
+      console.log(data);
+    }
+  };
+    if (!product) {
+    return (
+      <>
+        <Spin spinning={spinning} percent={percent} fullscreen />
+      </>
+    );
+  }
+
+  
+  const sellingPrice = Number(product.pr_act_price)-Number(product.pr_disc);
   return (
     <div>
       <BuyNow></BuyNow>
@@ -24,25 +107,21 @@ function ProductInd() {
                 fill="#EBBB3F"
               />
             </svg>{" "}
-            $30
+            ${sellingPrice}
           </h1>
-          <p>5% discount</p>
+          <p>-{product.pr_disc} discount</p>
         </div>
       </div>
       <div className="proddet">
-        <h1 className="qto-bold">Product name</h1>
-        <p className="pr1 qto-regular">Category</p>
+        <h1 className="qto-bold">{product.pr_name}</h1>
+        <p className="pr1 qto-regular">{product.pr_cat}</p>
         <p className="pr2 qto-regular">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries.
+         {product.pr_desc}
         </p>
       </div>
       <div className="qty">
         <p>No of items : </p>
-        <button>
+        <button onClick={handleQtyMinus}>
           <svg
             width="33"
             height="30"
@@ -67,8 +146,8 @@ function ProductInd() {
             />
           </svg>
         </button>
-        <p>1</p>
-        <button>
+        <p>{qty}</p>
+        <button onClick={handleQtyplus}>
           <svg
             width="33"
             height="30"

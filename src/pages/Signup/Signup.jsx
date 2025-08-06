@@ -1,6 +1,53 @@
-import React from 'react'
+import React from 'react';
+import { supabase } from '../../../supabaseClient';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 function Signup() {
+  const [name,setName]=useState('');
+  const [phone,setPhone]= useState('');
+  const [email,setEmail]=useState('');
+  const [password,setPassword]=useState('');
+  const navigate=useNavigate();
+
+  async function handleSignup()
+  {
+    const{data,error}=await supabase.auth.signUp({
+      email,
+      password,
+      options:{
+        data:{
+          full_name:name,
+          phone_no:phone
+        }
+      }
+    });
+    if(error)
+    {
+      console.log("Error on signup ",error)
+
+    }
+    else{
+      const user=data?.user;
+      if(user)
+      {
+        const{error : inserer} = await supabase.from('user_data').insert([{
+          user_id:user.id,
+          email:email,
+          name:name,
+          phone:phone
+        }]);
+        if(inserer)
+        {
+          console.log("Insert issue");
+        }
+        else
+        {
+          navigate('/login');
+        }
+      }
+    }
+  }
   return (
     <div>
         <div className="hdcontent">
@@ -10,11 +57,11 @@ function Signup() {
         </p>
       </div>
       <div className="logins">
-        <input type="text" placeholder="Enter name"></input><br></br>
-        <input type="number" placeholder="Enter phone no"></input><br></br>
-        <input type="text" placeholder="Enter username"></input><br></br>
-        <input type="password" placeholder="Enter password"></input><br></br>
-        <button>Signup</button>
+        <input type="text" value={name} onChange={(e)=>setName(e.target.value)} placeholder="Enter name"></input><br></br>
+        <input type="number" value={phone} onChange={(e)=>setPhone(e.target.value)} placeholder="Enter phone no"></input><br></br>
+        <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Enter username"></input><br></br>
+        <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Enter password"></input><br></br>
+        <button onClick={handleSignup}>Signup</button>
       </div>
       <div className="vara"></div>
       <p className="varata qto-regular">Or signin with these</p>
