@@ -9,19 +9,35 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useAuth } from "../../authContext/authContext";
 import { Link } from "react-router";
+import { Spin ,Flex} from "antd";
+import { LoadingOutlined } from '@ant-design/icons';
 
 function Home() {
+  const [spinning,setSpinning] = useState(false);
+  const [percent,setPercent] = useState(0);
    const {getUserName} = useAuth();
    const [products,setProducts] = useState([]);
    useEffect(()=>
   {
+    // showLoader();
     fetchProducts();
     // console.log("Updated products:", products);
   },[]);
+  
 
    async function fetchProducts()
    {
+    // showLoader();
+    setSpinning(true);
+    let ptg = -10;
+    const interval = setInterval(() => {
+      ptg += 5;
+      setPercent(ptg);
+    }, 100);
     const {data : proddat,error : proderr} = await supabase.from('products').select('*');
+    clearInterval(interval);
+        setSpinning(false);
+        setPercent(0);
     if(proderr)
     {
       console.log("No products broughtr",proderr);
@@ -30,9 +46,24 @@ function Home() {
       setProducts(proddat);
       console.log(proddat);
     }
+    
    }
+   
+   
   return (
+    
+      // <Spin spinning={spinning} percent={percent} fullscreen>
+      // <Spin spinning={spinning} tip={`Loading ${percent}%`} size="large">
     <div>
+      {spinning && (
+        <>
+        <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+  <Flex align="center" gap="middle">
+      <Spin indicator={<LoadingOutlined spin />} size="large" />
+  </Flex>
+  </div></>
+
+)}
       <Navigation></Navigation>
       <div className="mele">
         <div className="koode">
@@ -158,6 +189,7 @@ function Home() {
         {/* <div className="sthalam"></div> */}
         {/* <div className="sthalam"></div> */}
     </div>
+    // </Spin>
   );
 }
 
