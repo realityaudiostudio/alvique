@@ -2,8 +2,55 @@ import React from 'react';
 import './checkout.css'
 import Heading from '../../components/Heading/Heading';
 import MainBut from '../../components/MainBut/MainBut';
+import { useLocale } from 'antd/es/locale';
+import { useLocation } from 'react-router';
+import { useState } from 'react';
+import { supabase } from '../../../supabaseClient';
+import { useEffect } from 'react';
 
 function Checkout() {
+  const [address,setAddress] = useState({});
+  const [coupon,setCoupon] = useState(0);
+  const [cpnName,setCpnName] = useState('');
+  const location = useLocation();
+  const {buyingNow} = location.state || {};
+  console.log("checkout data",buyingNow);
+  useEffect(()=>
+  {
+    handleAddress();
+  },[]);
+  async function setCpnVal(e) {
+    setCpnName(e.target.value);
+  }
+  async function checkCoupon()
+  {
+    const cpnV=cpnName;
+    const {data:cpnd,error:cpne} = await supabase.from('cpn').select('*').eq('cpn_code',cpnV).single()
+    if (cpne)
+    {
+      console.log("Error on cpn",cpne)
+
+    }
+    else
+    {
+      setCoupon(cpnd.cpn_amount);
+      console.log("Coupun applied!");
+    }
+  }
+  async function handleAddress()
+  {
+    const {data,error} = await supabase.from('user_data').select('housename,post_office,city,pincode').eq('user_id',buyingNow.userId).single();
+    if(error)
+    {
+      console.log("Error on address",error);
+    }
+    else
+    {
+      console.log("addd",data);
+      setAddress(data);
+    }
+  }
+  const grandtotal=Number(buyingNow.total)+10-Number(coupon);
   return (
     <div>
         <Heading headVal="Checkout"></Heading>
@@ -12,10 +59,10 @@ function Checkout() {
             <svg xmlns="http://www.w3.org/2000/svg" width="62" height="63" viewBox="0 0 62 63" fill="none">
   <path d="M58.125 50.875H56.1875V21.8125C56.1875 21.2986 55.9834 20.8058 55.62 20.4425C55.2567 20.0791 54.7639 19.875 54.25 19.875H38.75C38.2361 19.875 37.7433 20.0791 37.38 20.4425C37.0166 20.8058 36.8125 21.2986 36.8125 21.8125V31.5H25.1875V10.1875C25.1875 9.67364 24.9834 9.18083 24.62 8.81748C24.2567 8.45413 23.7639 8.25 23.25 8.25H7.75C7.23614 8.25 6.74333 8.45413 6.37998 8.81748C6.01663 9.18083 5.8125 9.67364 5.8125 10.1875V50.875H3.875C3.36114 50.875 2.86833 51.0791 2.50498 51.4425C2.14163 51.8058 1.9375 52.2986 1.9375 52.8125C1.9375 53.3264 2.14163 53.8192 2.50498 54.1825C2.86833 54.5459 3.36114 54.75 3.875 54.75H58.125C58.6389 54.75 59.1317 54.5459 59.495 54.1825C59.8584 53.8192 60.0625 53.3264 60.0625 52.8125C60.0625 52.2986 59.8584 51.8058 59.495 51.4425C59.1317 51.0791 58.6389 50.875 58.125 50.875ZM40.6875 23.75H52.3125V50.875H40.6875V23.75ZM36.8125 35.375V50.875H25.1875V35.375H36.8125ZM9.6875 12.125H21.3125V50.875H9.6875V12.125ZM17.4375 17.9375V21.8125C17.4375 22.3264 17.2334 22.8192 16.87 23.1825C16.5067 23.5459 16.0139 23.75 15.5 23.75C14.9861 23.75 14.4933 23.5459 14.13 23.1825C13.7666 22.8192 13.5625 22.3264 13.5625 21.8125V17.9375C13.5625 17.4236 13.7666 16.9308 14.13 16.5675C14.4933 16.2041 14.9861 16 15.5 16C16.0139 16 16.5067 16.2041 16.87 16.5675C17.2334 16.9308 17.4375 17.4236 17.4375 17.9375ZM17.4375 29.5625V33.4375C17.4375 33.9514 17.2334 34.4442 16.87 34.8075C16.5067 35.1709 16.0139 35.375 15.5 35.375C14.9861 35.375 14.4933 35.1709 14.13 34.8075C13.7666 34.4442 13.5625 33.9514 13.5625 33.4375V29.5625C13.5625 29.0486 13.7666 28.5558 14.13 28.1925C14.4933 27.8291 14.9861 27.625 15.5 27.625C16.0139 27.625 16.5067 27.8291 16.87 28.1925C17.2334 28.5558 17.4375 29.0486 17.4375 29.5625ZM17.4375 41.1875V45.0625C17.4375 45.5764 17.2334 46.0692 16.87 46.4325C16.5067 46.7959 16.0139 47 15.5 47C14.9861 47 14.4933 46.7959 14.13 46.4325C13.7666 46.0692 13.5625 45.5764 13.5625 45.0625V41.1875C13.5625 40.6736 13.7666 40.1808 14.13 39.8175C14.4933 39.4541 14.9861 39.25 15.5 39.25C16.0139 39.25 16.5067 39.4541 16.87 39.8175C17.2334 40.1808 17.4375 40.6736 17.4375 41.1875ZM29.0625 45.0625V41.1875C29.0625 40.6736 29.2666 40.1808 29.63 39.8175C29.9933 39.4541 30.4861 39.25 31 39.25C31.5139 39.25 32.0067 39.4541 32.37 39.8175C32.7334 40.1808 32.9375 40.6736 32.9375 41.1875V45.0625C32.9375 45.5764 32.7334 46.0692 32.37 46.4325C32.0067 46.7959 31.5139 47 31 47C30.4861 47 29.9933 46.7959 29.63 46.4325C29.2666 46.0692 29.0625 45.5764 29.0625 45.0625ZM44.5625 45.0625V41.1875C44.5625 40.6736 44.7666 40.1808 45.13 39.8175C45.4933 39.4541 45.9861 39.25 46.5 39.25C47.0139 39.25 47.5067 39.4541 47.87 39.8175C48.2334 40.1808 48.4375 40.6736 48.4375 41.1875V45.0625C48.4375 45.5764 48.2334 46.0692 47.87 46.4325C47.5067 46.7959 47.0139 47 46.5 47C45.9861 47 45.4933 46.7959 45.13 46.4325C44.7666 46.0692 44.5625 45.5764 44.5625 45.0625ZM44.5625 33.4375V29.5625C44.5625 29.0486 44.7666 28.5558 45.13 28.1925C45.4933 27.8291 45.9861 27.625 46.5 27.625C47.0139 27.625 47.5067 27.8291 47.87 28.1925C48.2334 28.5558 48.4375 29.0486 48.4375 29.5625V33.4375C48.4375 33.9514 48.2334 34.4442 47.87 34.8075C47.5067 35.1709 47.0139 35.375 46.5 35.375C45.9861 35.375 45.4933 35.1709 45.13 34.8075C44.7666 34.4442 44.5625 33.9514 44.5625 33.4375Z" fill="#241303"/>
 </svg>
-<p className='qto-regular'>Ethackatt H<br></br>
-Manimooly PO<br></br>
-Nilambur City<br></br>
-PIN:679333</p>
+<p className='qto-regular'>{address.housename}<br></br>
+{address.post_office}<br></br>
+{address.city}<br></br>
+PIN:{address.pincode}</p>
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
   <path d="M22.7074 17.2075L12.7074 27.2075C12.6145 27.3004 12.5042 27.3741 12.3828 27.4244C12.2614 27.4747 12.1313 27.5006 11.9999 27.5006C11.8686 27.5006 11.7384 27.4747 11.617 27.4244C11.4957 27.3741 11.3854 27.3004 11.2924 27.2075C11.1995 27.1146 11.1258 27.0043 11.0756 26.8829C11.0253 26.7615 10.9994 26.6314 10.9994 26.5C10.9994 26.3686 11.0253 26.2385 11.0756 26.1171C11.1258 25.9957 11.1995 25.8854 11.2924 25.7925L20.5862 16.5L11.2924 7.20751C11.1048 7.01987 10.9994 6.76537 10.9994 6.50001C10.9994 6.23464 11.1048 5.98015 11.2924 5.79251C11.4801 5.60487 11.7346 5.49945 11.9999 5.49945C12.2653 5.49945 12.5198 5.60487 12.7074 5.79251L22.7074 15.7925C22.8004 15.8854 22.8742 15.9957 22.9245 16.1171C22.9748 16.2385 23.0007 16.3686 23.0007 16.5C23.0007 16.6314 22.9748 16.7615 22.9245 16.8829C22.8742 17.0043 22.8004 17.1146 22.7074 17.2075Z" fill="#241303"/>
 </svg>
@@ -28,7 +75,7 @@ PIN:679333</p>
             <div className="dotvera"></div>
             <div className="toc">
                 <p className='qto-regular'>Total Cost : </p>
-                <h1 className='qto-bold'>$25</h1>
+                <h1 className='qto-bold'>${buyingNow.total}</h1>
             </div>
             <div className="toc">
                 <p className='qto-regular'>Shipping cost : </p>
@@ -36,7 +83,7 @@ PIN:679333</p>
             </div>
             <div className="toc">
                 <p className='qto-regular'>Grand Total : </p>
-                <h1 className='spp qto-bold'>$35</h1>
+                <h1 className='spp qto-bold'>${grandtotal}</h1>
             </div>
             <svg className='barc' xmlns="http://www.w3.org/2000/svg" width="126" height="58" viewBox="0 0 126 58" fill="none">
   <path d="M0 6.84698H7.40012V51.153H0V6.84698ZM11.9293 51.153H16.0955V6.84698H11.9293V51.153ZM19.0984 51.153H23.2563V6.84698H19.0984V51.153ZM28.726 51.153H37.8338V6.84698H28.726V51.153ZM45.1267 51.153H49.6806V6.84698H45.1267V51.153ZM56.7425 51.153H75.6182V6.84698H56.7425V51.153ZM105.928 51.153H112.132V6.84698H105.928V51.153ZM117.544 6.84698V51.153H126V6.84698H117.544ZM83.1915 51.153H87.2505V6.84698H83.1915V51.153ZM93.0666 51.153H97.1255V6.84698H93.0666V51.153Z" fill="#030104"/>
@@ -47,9 +94,11 @@ PIN:679333</p>
             Discount Coupon
         </h1>
         <div className="cpn">
-          <input type='text' placeholder='code'></input>
-          <button className='qto-bold'>Apply</button>
+          <input type='text' placeholder='code' onChange={setCpnVal}></input>
+          <button className='qto-bold' onClick={checkCoupon}>Apply</button>
         </div>
+        {coupon > 0 ?<p className='qto-regular toc'>Coupun Applied!</p> :<p className='qto-regular'></p>}
+        
         <h1 className="ordrs qto-bold">
             Payment Method
         </h1>

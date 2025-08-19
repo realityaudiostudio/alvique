@@ -5,18 +5,21 @@ import Individual from "../../../public/img/ind.png";
 import BuyNow from "../../components/BuyNow/BuyNow";
 import { supabase } from "../../../supabaseClient";
 import { useState } from "react";
-import { useLocation, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { useEffect } from "react";
 import { Spin } from "antd";
+import { useAuth } from "../../authContext/authContext";
 
 function ProductInd() {
   const location = useLocation();
   const {id} = useParams();
+  const navigate = useNavigate();
   const [product,setProduct] = useState(location.state?.product || null);
    const [spinning, setSpinning] = useState(false);
    const [percent, setPercent] = useState(0);
    const [fetchError,setFetchError] = useState(false);
    const [qty,setQty]=useState(1);
+   const { user } = useAuth();
   useEffect(()=>
   {
     if(!product)
@@ -63,6 +66,29 @@ function ProductInd() {
       }
     }, 100);
   };
+  async function updateCart()
+  {
+    const useId = user?.id
+    const selley = Number(product.pr_act_price)-Number(product.pr_disc);
+    const {data:cartdata,error:carterror} = await supabase.from('cart').insert([{
+      user_id:useId,
+      pr_name : product.pr_name,
+      pr_price : selley,
+      qty:qty,
+      stock_available:product.stock_available,
+      u_email:user?.email
+
+    }]);
+    if (carterror)
+    {
+      console.log("Failed adding to cart",carterror);
+    }
+    else
+    {
+      navigate('/cart');
+    }
+
+  }
 
   async function fetchProduct()
   {
@@ -90,7 +116,7 @@ function ProductInd() {
   const sellingPrice = Number(product.pr_act_price)-Number(product.pr_disc);
   return (
     <div>
-      <BuyNow></BuyNow>
+      <BuyNow onaddCart={updateCart}></BuyNow>
       <div class="card2">
         <img src={Prod} alt="Currency Note" class="card-img" />
         <div class="price-tag2 qto-bold">

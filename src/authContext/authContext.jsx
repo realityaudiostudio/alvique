@@ -55,6 +55,7 @@ export const AuthProvider = ({ children }) => {
     getUserName: () => user?.user_metadata?.full_name || user?.email || 'Guest',
     getUserEmail: () => user?.email || 'No email',
     isAuthenticated: () => !!user,
+    getAuthId: () => user?.auth.id,
   };
 
   return (

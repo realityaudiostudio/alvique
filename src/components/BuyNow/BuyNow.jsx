@@ -1,10 +1,10 @@
 import React from 'react';
 import './buynow.css';
-function BuyNow() {
+function BuyNow({onaddCart,onbuyNow}) {
   return (
     <div>
         <div className="prodd">
-            <button className='atc qto-bold'>Add to cart</button>
+            <button onClick={onaddCart} className='atc qto-bold'>Add to cart</button>
             <button className='byn qto-bold'>Buy Now</button>
         </div>
     </div>
