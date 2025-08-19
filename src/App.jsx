@@ -15,11 +15,11 @@ import PurchaseDet from './pages/PurchaseDet/PurchaseDet';
 import Profile from './pages/Profile/Profile';
 import PrivateRoute from './Route/PrivateRoute/PrivateRoute';
 import { AuthProvider } from './authContext/authContext';
-import CancellationRefund from './pages/Policies/cancellation-refund';
-import Terms from './pages/Policies/terms';
-import Shipping from './pages/Policies/shipping';
-import Privacy from './pages/Policies/privacy';
-import Contact from './pages/Policies/contact';
+import CancellationRefund from './pages/Policies/Cancellation-refund';
+import Terms from './pages/Policies/Terms';
+import Shipping from './pages/Policies/Shipping';
+import Privacy from './pages/Policies/Privacy';
+import Contact from './pages/Policies/Contact';
 
 function App() {
   
