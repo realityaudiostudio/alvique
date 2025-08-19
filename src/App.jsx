@@ -15,6 +15,11 @@ import PurchaseDet from './pages/PurchaseDet/PurchaseDet';
 import Profile from './pages/Profile/Profile';
 import PrivateRoute from './Route/PrivateRoute/PrivateRoute';
 import { AuthProvider } from './authContext/authContext';
+import CancellationRefund from './pages/Policies/cancellation-refund';
+import Terms from './pages/Policies/terms';
+import Shipping from './pages/Policies/shipping';
+import Privacy from './pages/Policies/privacy';
+import Contact from './pages/Policies/contact';
 
 function App() {
   
@@ -35,6 +40,11 @@ function App() {
           <Route path='/yorder' element={<YourOrder></YourOrder>}/>
           <Route path='/purchase' element={<PurchaseDet></PurchaseDet>}/>
           <Route path='/profile' element={<PrivateRoute><Profile></Profile></PrivateRoute>}/>
+          <Route path='/cancellation-refund' element={<CancellationRefund/>}/>
+          <Route path='/terms' element={<Terms/>}/>
+          <Route path='/shipping' element={<Shipping/>}/>
+          <Route path='/privacy' element={<Privacy/>}/>
+          <Route path='/contact' element={<Contact/>}/>
         </Routes>
       </Router>
       </AuthProvider>
